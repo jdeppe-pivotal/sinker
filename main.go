@@ -14,6 +14,9 @@ var app = cli.NewApp()
 
 func main() {
 	app.Name = "sinker"
+	app.Usage = "file sync + sftp"
+	app.Description = "Very basic copy tool built on top of sftp"
+	app.Version = "0.0.1"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "host",
@@ -27,7 +30,10 @@ func main() {
 		},
 	}
 
-	app.Run(os.Args)
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatalf("unable to run app: %s", err)
+	}
 }
 
 func getSftpClient(c *cli.Context) (*sftp.Client, error){
